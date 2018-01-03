@@ -1,4 +1,4 @@
-## Webmo: Website availability and performance monitoring
+## WebMo: Website availability and performance monitoring
 
 1. [Overview](#overview)
 2. [Installation](#installation)
@@ -41,7 +41,7 @@ and then
 ```
 source /path/to/new/virtual/environment/bin/activate
 ```
-4. Inside the (root) directory named website_monitor (where setup.py is placed), 
+4. Inside the root directory (where setup.py is placed), 
 setup the program by executing the file install.sh:
 ```
 ./install.sh
@@ -69,7 +69,7 @@ The alert logic has been tested by populating a fake database with
 a website that goes down and then recovered. It is done by changing the 
 website url (one that is available and one that returns an error or no response)
 
-To launch the tests, go inside the directory website_monitor and do:
+To launch the tests, go inside the root directory and do:
 ```
 python3 -m unittest
 ```
