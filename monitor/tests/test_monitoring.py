@@ -15,7 +15,7 @@ class DumbController():
 class MonitoringTest(unittest.TestCase):
     """Test case on functions concerning the monitoring of websites
 
-    Problem/TODO: launch the test with "python3 -m unittest" in the website_monitor directory
+    Problem: launch the test with "python3 -m unittest" in the website_monitor directory
     But it creates tge db inside this directory, while the real db is located at the root of the project
     """
 

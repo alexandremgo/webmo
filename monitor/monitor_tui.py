@@ -126,6 +126,7 @@ class MainView(urwid.WidgetWrap):
         return urwid.Frame(self.history_w, footer=self.shortcuts_footer())
 
     def display_alert(self, alert):
+        """Return a urwid.Pile displaying the alert (down or recovered)"""
         content = []
         if alert.availability < 80:
             content.append(urwid.AttrMap(
@@ -225,45 +226,21 @@ class MainView(urwid.WidgetWrap):
         vline_box = urwid.BoxAdapter(vline, height=1)
         hline_box = urwid.BoxAdapter(hline, height=1)
 
-        # content = [
-        #     ("fixed", 1, vline_box),
-        #     ("fixed", 8, urwid.Pile([
-        #         hline_box,
-        #         urwid.Text("Status"),
-        #         hline_box,
-        #         urwid.Text("Counts"),
-        #         hline_box,
-        #     ])),
-        #     ("fixed", 1, vline_box)
-        # ]
-        #
-        # if codes_count:
-        #     for code, nb in codes_count.items():
-        #         content.append(
-        #             ("fixed", 8, urwid.Pile([
-        #                 hline_box,
-        #                 urwid.Text(str(code)),
-        #                 hline_box,
-        #                 urwid.Text(str(nb)),
-        #                 hline_box,
-        #             ]))
-        #         )
-        #         content.append(("fixed", 1, vline_box))
-        #
-        # return urwid.Columns(content)
-
+        # Left "column"
         content_left = [
             hline_box,
             urwid.Text("Status"),
             hline_box,
         ]
 
+        # Right "column"
         content_right = [
             hline_box,
             urwid.Text("Counts"),
             hline_box,
         ]
 
+        # right, middle and left separators
         content_vertical = [
             vline_box,
             vline_box,
@@ -289,6 +266,7 @@ class MainView(urwid.WidgetWrap):
         left = urwid.Pile(content_left)
         right = urwid.Pile(content_right)
         vertical_line = urwid.Pile(content_vertical)
+
         return urwid.Columns(
             [('fixed', 1, vertical_line), ('fixed', self.ARRAY_WIDTH, left), ('fixed', 1, vertical_line),
              ('fixed', self.ARRAY_WIDTH, right), ('fixed', 1, vertical_line)])
@@ -351,6 +329,7 @@ class MainView(urwid.WidgetWrap):
             self.stats_w.set_focus(0, "below")
 
     def update_monitors(self, monitors):
+        """Set the monitors (WebsiteMonitor instances) and transfer them to the DisplaySettings instance"""
         self.monitors = monitors
         self.display_settings.update_monitors(monitors)
 
@@ -431,6 +410,7 @@ class TerminalController:
             for website in websites_query:
                 self.monitors.append(WebsiteMonitor(website, self))
 
+        # Transfer the monitors to the MainView instance
         self.view.update_monitors(self.monitors)
 
     def start_monitoring(self):
@@ -445,6 +425,7 @@ class TerminalController:
         self.schedule_display()
 
     def update_alert_history(self):
+        """Trigger the update_alert_history from the MainView instance"""
         self.view.update_alert_history()
 
     def schedule_display(self):

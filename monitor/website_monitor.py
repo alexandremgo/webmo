@@ -33,7 +33,6 @@ class WebsiteMonitor:
         if last_alert and last_alert.availability < 80:
             self.on_alert = True
 
-        # TODO: queue ? sql ? damn
         self.full_resp_times = []
         self.resp_times = []
         self.status_codes = []
